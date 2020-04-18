@@ -38,7 +38,7 @@ Fit different models, see which features have largest effects. Converts county d
 - Extend prediction script to predict with additional models, output error
 - Test different combinations of models, features, and counties included (min days non-missing)
 - Find appropriate parameters for time series models
-- Compare targets: count, log(count), % of population, % increase in count, raw increase in count, cases vs deaths
+- Compare targets: count, log(count), % of population, cases vs deaths
 - Consider how to select which counties to predict, more timepoints vs more counties
 - Consider how to handle outliers (remove or focus on predicting outlier/rapid growth?)
 - Combine external data with arima (e.g. with arimax), add other time series models
