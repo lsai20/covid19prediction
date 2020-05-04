@@ -16,7 +16,8 @@ from sklearn.ensemble import RandomForestRegressor
 
 #np.set_printoptions(precision=2)
 
-
+import time
+import datetime
 
 def load_county_datasets():
     ''' Load data into pd dataframes '''
@@ -262,6 +263,82 @@ def run_kfold2(regrs, names, data, targets):
         print('MSE for %s ' % name.ljust(50) + "{:10.2f}".format(totalsD[name]/num_folds))
 
 
+def make_fips2countystateD(counts_fname = 'data/nyt-us-counties-cases-deaths.csv'):
+    '''countssDF should have a fips, county, and state column'''
+    # fips2labelD[float fips] = (str county capitalized, str state full capitalized)
+
+    # remove ascii chars in county names
+    with open(counts_fname) as f: 
+        lines = f.readlines()
+
+    with open(counts_fname,'w') as f: # overwrite old file
+        for line in lines:
+            f.write(''.join([c if ord(c) < 128 else '_' for c in line]) )
+
+    # nyt case and death counts, where each date-county pair is a row
+    nyt_counts_df = pd.read_csv(counts_fname)
+
+    fips2countystateD = {}
+    for i, row in nyt_counts_df.iterrows():
+        fips2countystateD[row['fips']] = (row['county'], row['state'])
+        
+    return fips2countystateD
+
+
+def make_datesHeader(startDate, endDate):
+    '''given datetime objs for start and end, 
+    return string in form ",M/D/YY,M/D/YY,..." without zero padding '''
+    if startDate > endDate:
+        print('Error: start date after end date')
+        return None
+    # if pd, could convert to datetime
+    
+    dates = [startDate + datetime.timedelta(days=i) for i in range((endDate-startDate).days + 1)]
+    dates = [d.strftime("%-m/%-d/%y") for d in dates]
+    return ',' + ','.join(dates) + '\n'
+
+
+def output_csv_preds(fippreds, fips2countystateD, startDate, endDate, outFilename, convertLog=True, startCol=1, endCol=None):
+    '''fippreds should contain fips, then columns with predictions for each date.
+    startDate and endDate are datetime.date objects.
+    start, endCol indicate which cols of preds contain predictions to output as csv.'''
+    # ex/ if col 0 is fips, startCol is 1. ex/ if predicting one month into future, use last 30 days
+
+    # check num dates matches    
+    num_dates = (endDate - startDate).days
+    if not endCol:
+        num_dates2 = fippreds.shape[1] - startCol
+    else:
+        num_dates2 = endCol - startCol
+    if num_dates2 != num_dates:
+        print('output_csv_preds: WARNING: datesHeader and preds have mismatched number of days')
+
+
+    preds2 = np.copy(fippreds) # avoid modifying passed in preds
+    if convertLog:
+        preds2[:,startCol:endCol] = np.exp(preds2[:,startCol:endCol])
+        print('converted predictions from log(cases) to # cases for output')
+    
+    datesHeader = make_datesHeader(startDate, endDate)
+
+    with open(outFilename, 'w') as outf:
+        outf.write(datesHeader) # format: 4/23/20,4/24/20,4/25/20,...
+        if datesHeader[-1] != '\n':
+            outf.write('\n')
+        for i in range(preds2.shape[0]):
+            # format: "New York City, New York, US", 123, 456, ...
+            fips = preds2[i,0]
+            if not endCol:
+                preds_i = preds2[i,startCol:]
+            else:
+                preds_i = preds2[i,startCol:endCol]
+            county_label = '"%s, %s, US",' % fips2countystateD[fips]
+            outf.write(county_label)
+            outf.write(','.join(str(p) for p in preds_i))
+            outf.write('\n')
+    
+    return
+
 
 if __name__ == '__main__':
 
@@ -312,3 +389,5 @@ if __name__ == '__main__':
     
     # run kfold cross validation
     run_kfold2(regrs, names, X, y)
+
+

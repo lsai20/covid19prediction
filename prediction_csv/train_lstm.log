@@ -1,0 +1,111 @@
+use_last_n_days: 28, use_log_counts: 1
+num counties, dates, windows: 2368 21 6
+num counties, dates, windows: 2368 28 13
+Using device: cpu
+training model with [hidden dim 20, num layers 2, dropout 0.500, loss MSE, batch 100, lr 0.01000, epoch 20]
+[Epoch 1] loss: 322.348
+[Epoch 2] loss: 44.060
+[Epoch 3] loss: 30.941
+[Epoch 4] loss: 24.106
+[Epoch 5] loss: 18.554
+[Epoch 6] loss: 16.692
+[Epoch 7] loss: 15.917
+[Epoch 8] loss: 14.070
+[Epoch 9] loss: 14.049
+[Epoch 10] loss: 14.169
+[Epoch 11] loss: 12.907
+[Epoch 12] loss: 13.000
+[Epoch 13] loss: 11.933
+[Epoch 14] loss: 11.920
+[Epoch 15] loss: 10.763
+[Epoch 16] loss: 11.444
+[Epoch 17] loss: 10.363
+[Epoch 18] loss: 9.862
+[Epoch 19] loss: 10.276
+[Epoch 20] loss: 10.486
+Finished Training
+converted predictions from log(cases) to # cases for output
+wrote prediction_csv/test_lstm_20_2_100_0.010_20.csv
+
+Using device: cpu
+training model with [hidden dim 20, num layers 2, dropout 0.500, loss MSE, batch 100, lr 0.01000, epoch 20]
+[Epoch 1] loss: 527.968
+[Epoch 2] loss: 75.698
+[Epoch 3] loss: 44.542
+[Epoch 4] loss: 34.451
+[Epoch 5] loss: 27.429
+[Epoch 6] loss: 24.964
+[Epoch 7] loss: 23.310
+[Epoch 8] loss: 21.661
+[Epoch 9] loss: 21.366
+[Epoch 10] loss: 20.393
+[Epoch 11] loss: 19.353
+[Epoch 12] loss: 19.404
+[Epoch 13] loss: 19.312
+[Epoch 14] loss: 18.820
+[Epoch 15] loss: 17.889
+[Epoch 16] loss: 18.700
+[Epoch 17] loss: 17.371
+[Epoch 18] loss: 17.096
+[Epoch 19] loss: 16.835
+[Epoch 20] loss: 16.189
+Finished Training
+converted predictions from log(cases) to # cases for output
+wrote prediction_csv/future_lstm_20_2_100_0.010_20.csv
+
+
+
+Using device: cpu
+training model with [hidden dim 10, num layers 1, dropout 0.000, loss MSE, batch 50, lr 0.02000, epoch 20]
+[Epoch 1] loss: 134.060
+[Epoch 2] loss: 12.860
+[Epoch 3] loss: 6.603
+[Epoch 4] loss: 6.233
+[Epoch 5] loss: 4.305
+[Epoch 6] loss: 4.406
+[Epoch 7] loss: 3.854
+[Epoch 8] loss: 3.707
+[Epoch 9] loss: 3.868
+[Epoch 10] loss: 3.595
+[Epoch 11] loss: 3.421
+[Epoch 12] loss: 3.439
+[Epoch 13] loss: 3.569
+[Epoch 14] loss: 3.145
+[Epoch 15] loss: 3.147
+[Epoch 16] loss: 3.191
+[Epoch 17] loss: 3.037
+[Epoch 18] loss: 3.006
+[Epoch 19] loss: 2.970
+[Epoch 20] loss: 2.897
+Finished Training
+converted predictions from log(cases) to # cases for output
+wrote prediction_csv/test_lstm_10_1_50_0.020_20.csv
+
+Using device: cpu
+training model with [hidden dim 10, num layers 1, dropout 0.000, loss MSE, batch 50, lr 0.02000, epoch 20]
+[Epoch 1] loss: 163.128
+[Epoch 2] loss: 12.918
+[Epoch 3] loss: 10.124
+[Epoch 4] loss: 7.732
+[Epoch 5] loss: 7.098
+[Epoch 6] loss: 6.970
+[Epoch 7] loss: 6.342
+[Epoch 8] loss: 6.191
+[Epoch 9] loss: 5.972
+[Epoch 10] loss: 5.804
+[Epoch 11] loss: 5.629
+[Epoch 12] loss: 5.568
+[Epoch 13] loss: 5.350
+[Epoch 14] loss: 5.490
+[Epoch 15] loss: 5.261
+[Epoch 16] loss: 5.264
+[Epoch 17] loss: 5.307
+[Epoch 18] loss: 5.165
+[Epoch 19] loss: 5.113
+[Epoch 20] loss: 5.035
+Finished Training
+converted predictions from log(cases) to # cases for output
+wrote prediction_csv/future_lstm_10_1_50_0.020_20.csv
+
+
+

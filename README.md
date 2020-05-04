@@ -5,9 +5,14 @@ county-level data and dates of interventions located in data/.
 
 ## Files
 
-###### time_series_nyt_county.ipynb
+###### arima_nyt_county.ipynb, lstm_nyt_county.ipynb
 
-Fit time series models (currently ARIMA and LSTM)
+Fit time series models and plot predictions
+
+
+###### train_predict_arima.py, train_predict_lstm.py
+
+Scripts to train and predict using time series models, using last 7 days as test data, and also predicting into the future. Outputs predictions to csv.
 
 
 ###### plot_nyt_county.ipynb
@@ -20,7 +25,7 @@ Fit different models, see which features have largest effects. Converts county d
 
 ###### compare_models_functions.py
 
-Contains some code from notebooks as functions, e.g. loading demographic data, filtering and transforming data by missingness, to log, computing MSE
+Contains some code from notebooks as functions, e.g. loading demographic data, filtering and transforming data by missingness, computing MSE, outputting csv.
 
 
 ###### processed_counties.txt and preprocess_data.py
